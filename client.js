@@ -1,7 +1,7 @@
 var net = require('net');
 const buffer = require('buffer');
 let host = '127.0.0.1';
-let port = 1234;
+let port = 1209;
 var client = new net.Socket();
 const { performance } = require('perf_hooks');
 
@@ -18,7 +18,7 @@ let dataBuffer = Buffer.alloc(1024*numOfSample);
 
 dataBuffer.write(JSON.stringify(data) ,'utf-8');
 
-client.connect(port, host, function () {
+client.connect(port, host, () => {
     client.setKeepAlive(true,60000)
     console.time('test');
     const t0 = performance.now();
@@ -36,7 +36,7 @@ client.connect(port, host, function () {
 });
 
 
-client.on('close', function () {
+client.on('close', () => {
     console.log('Connection closed');
 });
 
